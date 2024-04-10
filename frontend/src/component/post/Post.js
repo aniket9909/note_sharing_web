@@ -15,9 +15,12 @@ import "./Post.css";
 import { useSelector } from "react-redux";
 import { publicRequest } from "../../requestMethods";
 const Post = ({ note, postUser }) => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector(
+    (state) => state.user
+  );
   const user = currentUser;
-  const pf = "https://notesharingbackend-ankitkr437.onrender.com/images/";
+  const pf =
+    "https://notesharingbackend-ankitkr437.onrender.com/images/";
   const [like, setlike] = useState(note.likes.length);
   const [islike, setislike] = useState(false);
   const [isseen, setisseen] = useState(false);
@@ -35,7 +38,9 @@ const Post = ({ note, postUser }) => {
   useEffect(() => {
     const fetchComment = async (req, res) => {
       try {
-        const res = await publicRequest.get("comments/" + note._id);
+        const res = await publicRequest.get(
+          "comments/" + note._id
+        );
         setallcomment(res.data);
       } catch (err) {
         console.log(err);
@@ -46,20 +51,27 @@ const Post = ({ note, postUser }) => {
 
   const likehandler = () => {
     try {
-      publicRequest.put("notes/" + note._id + "/like", { userId: user._id });
+      publicRequest.put("notes/" + note._id + "/like", {
+        userId: user._id,
+      });
     } catch (err) {}
     setlike(islike ? like - 1 : like + 1);
     setislike(!islike);
   };
   const seenhandler = async () => {
     try {
-      await publicRequest.put("notes/" + note._id + "/buy", {
-        userId: user._id,
-      });
-    } catch (err) {}
+      await publicRequest.put(
+        "notes/" + note._id + "/buy",
+        {
+          userId: user._id,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
     setseen(isseen ? seen - 1 : seen + 1);
     setisseen(!isseen);
-    window.open(note.notefilename, "_blank").focus();
+    window.open(note.thumbnailfilename, "_blank").focus();
   };
   const DeleteNotes = async () => {
     let response = prompt(
@@ -67,8 +79,11 @@ const Post = ({ note, postUser }) => {
     );
     try {
       response === "YES" &&
-        (await publicRequest.delete(`notes/${note._id}`, { userId: user._id }));
-      response === "YES" && alert("notes deleted successfully");
+        (await publicRequest.delete(`notes/${note._id}`, {
+          userId: user._id,
+        }));
+      response === "YES" &&
+        alert("notes deleted successfully");
       response === "YES" && window.location.reload();
     } catch (err) {
       alert("sorry you can not delete this note");
@@ -79,7 +94,10 @@ const Post = ({ note, postUser }) => {
   return (
     <>
       <div className="post-container" key={note._id}>
-        <div className="post-topbar" style={{ lineHeight: "1" }}>
+        <div
+          className="post-topbar"
+          style={{ lineHeight: "1" }}
+        >
           <Link
             to={`/profile/${note.userId}`}
             style={{ textDecoration: "none" }}
@@ -103,8 +121,13 @@ const Post = ({ note, postUser }) => {
               </p>
             </Link>
             <div className="post-topbar-follow-ago-container">
-              <p>{postUser && postUser.followers.length} Followers</p>
-              <p style={{marginLeft:"5px"}}>{format(note.createdAt)}</p>
+              <p>
+                {postUser && postUser.followers.length}{" "}
+                Followers
+              </p>
+              <p style={{ marginLeft: "5px" }}>
+                {format(note.createdAt)}
+              </p>
             </div>
           </div>
 
@@ -112,18 +135,30 @@ const Post = ({ note, postUser }) => {
             <div className="post-topbar-edit-delete-container">
               <Link
                 to={`/note/update/${note._id}`}
-                style={{ textDecoration: "none",color:"black" }}
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
                 className="post-topbar-edit-icon"
               >
                 <Edit />
               </Link>
-              <Delete onClick={DeleteNotes} className="delete-icon" />
+              <Delete
+                onClick={DeleteNotes}
+                className="delete-icon"
+              />
             </div>
           )}
         </div>
 
-        <div className="main-post" style={{ height: "57vh" }}>
-          <div className="main-post-img-container" onClick={seenhandler}>
+        <div
+          className="main-post"
+          style={{ height: "57vh" }}
+        >
+          <div
+            className="main-post-img-container"
+            onClick={seenhandler}
+          >
             <img
               src={
                 note.thumbnailfilename
@@ -132,14 +167,24 @@ const Post = ({ note, postUser }) => {
               }
               alt="note-thumbnail"
             ></img>
-            <div className="View-pdf-1" onClick={seenhandler}>
+            <div
+              className="View-pdf-1"
+              onClick={seenhandler}
+            >
               <p>View-pdf</p>
               <img src="/image/icons8-view-50.png" />
             </div>
           </div>
-          <div className="main-post-about" style={{ lineHeight: "1.4" }}>
-              <p className="main-post-notename">{note.notename}</p>
-            <p className="main-post-description">Description:</p>
+          <div
+            className="main-post-about"
+            style={{ lineHeight: "1.4" }}
+          >
+            <p className="main-post-notename">
+              {note.notename}
+            </p>
+            <p className="main-post-description">
+              Description:
+            </p>
             <p className="main-post-desc">{note.desc}</p>
           </div>
         </div>
@@ -147,7 +192,10 @@ const Post = ({ note, postUser }) => {
         <div className="post-reaction-container">
           <div className="post-reaction">
             {islike ? (
-              <ThumbUp onClick={likehandler} style={{ color: " #3E8DE3" }} />
+              <ThumbUp
+                onClick={likehandler}
+                style={{ color: " #3E8DE3" }}
+              />
             ) : (
               <ThumbUpAltOutlined onClick={likehandler} />
             )}
@@ -156,7 +204,10 @@ const Post = ({ note, postUser }) => {
           <Link
             to={`/viewcomment/${note._id}`}
             className="link-in-comment"
-            style={{ textDecoration: "none",color:"black" }}
+            style={{
+              textDecoration: "none",
+              color: "black",
+            }}
           >
             <div className="post-reaction">
               <Comment />
