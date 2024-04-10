@@ -8,13 +8,16 @@ import Note from "../model/Noteschema.js";
 //create a post for selling a note
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/uploads/"); // Save uploaded files to the 'uploads' directory
+    cb(null, "images/"); // Save uploaded files to the 'uploads' directory
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // Rename uploaded files
+    cb(null, cleanFileName(file.originalname)); // Rename uploaded files
   },
 });
-
+function cleanFileName(fileName) {
+  // Replace any non-alphanumeric characters with underscores
+  return encodeURIComponent(fileName);
+}
 // Create a Multer instance with the storage configuration
 const upload = multer({ storage: storage });
 

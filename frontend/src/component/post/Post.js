@@ -71,7 +71,13 @@ const Post = ({ note, postUser }) => {
     }
     setseen(isseen ? seen - 1 : seen + 1);
     setisseen(!isseen);
-    window.open(note.thumbnailfilename, "_blank").focus();
+    window
+      .open(
+        "http://localhost:8000/" + note.notefilename,
+        "_blank"
+      )
+      .focus();
+    // window.open(note.thumbnailfilename, "_blank").focus();
   };
   const DeleteNotes = async () => {
     let response = prompt(
@@ -161,9 +167,10 @@ const Post = ({ note, postUser }) => {
           >
             <img
               src={
-                note.thumbnailfilename
-                  ? note.thumbnailfilename
-                  : pf + "images-notes.jpg"
+                // note.thumbnailfilename
+                //   ? note.thumbnailfilename
+                //   : pf + "images-notes.jpg"
+                "http://localhost:8000/" + note.notefilename
               }
               alt="note-thumbnail"
             ></img>

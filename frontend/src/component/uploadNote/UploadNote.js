@@ -92,7 +92,7 @@ const UploadNote = () => {
 
     try {
       await publicRequest.post("/notes", newNote);
-      // window.location.reload();
+      window.location.reload();
       alert("successfully uploaded");
     } catch (err) {
       alert("error for refresh");
@@ -176,7 +176,7 @@ const UploadNote = () => {
               placeholder="Thumbnail image"
               type="file"
               id="thumbnail-file-upload"
-              accept=".png,.jpeg,.jpg"
+              accept=".png,.jpeg,.jpg,.pdf"
               onChange={(e) =>
                 setfileimg(e.target.files[0])
               }
