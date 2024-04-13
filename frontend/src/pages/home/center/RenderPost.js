@@ -79,7 +79,7 @@ const RenderPost = () => {
       if(!searchedValue){
         const res = await publicRequest.get(`notes/?count=${postcount}`);
         setnotes(
-          res.data.sort((n1, n2) => {
+          res?.data?.sort((n1, n2) => {
             return new Date(n2.createdAt) - new Date(n1.createdAt);
           })
         );

@@ -34,7 +34,7 @@ function UpdatePost() {
         "https://api.cloudinary.com/v1_1/dw2fok6if/image/upload",
         data
       );
-      newNote.thumbnailfilename = await res.data.secure_url;
+      newNote.thumbnailfilename = await res?.data?.secure_url;
 
     }
     try {

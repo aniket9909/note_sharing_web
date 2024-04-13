@@ -37,7 +37,7 @@ const UpdateUser = () => {
         "https://api.cloudinary.com/v1_1/dw2fok6if/image/upload",
         data
       );
-      newUser.profilePicture = await res.data.secure_url;
+      newUser.profilePicture = await res?.data?.secure_url;
     }
     try {
       await publicRequest.put(`users/${user._id}`, newUser);

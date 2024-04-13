@@ -96,7 +96,8 @@ const Register = () => {
  
   const dispatch = useDispatch();
   const { isFetching, error} = useSelector((state) => state.user);
-
+  console.log('first');
+console.log(error);
   const handleClick = (e) => {
     e.preventDefault();
     password=== confirmpassword ?

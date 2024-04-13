@@ -16,7 +16,7 @@ const Home = () => {
         <div className='home-container'>
         <div className='home-top'>
         <UploadNote/>
-        <Author />
+        {/* <Author /> */}
         </div>
            <div className='main'>
           <div className='left-container'>

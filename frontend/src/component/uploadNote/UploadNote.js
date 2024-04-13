@@ -72,7 +72,7 @@ const UploadNote = () => {
       //   data
       // );
 
-      newNote.thumbnailfilename = await res.data.secure_url;
+      newNote.thumbnailfilename = await res?.data?.secure_url;
       try {
         const resData = await publicRequest.post(
           "/notes/savefile",
